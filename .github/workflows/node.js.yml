@@ -1,29 +1,33 @@
-  # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-  # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+name: Main
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-  name: Node.js CI
-
-  on:
-    push:
-      branches: [ "main" ]
-    pull_request:
-      branches: [ "main" ]
-
-  jobs:
-    build:
-
-      runs-on: ubuntu-latest
-
-      strategy:
-        matrix:
-          node-version: [12.x, 14.x, 16.x]
-      steps:
-      - uses: actions/checkout@v3
-      - name: Use SocailConnect ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use React.js
+        uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+          node-version: "14.x"
+      - name: Install dependencies
+        run: npm install
+      - name: Run test
+        run: npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Deploy to heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        # uses: dilip20222/test/heroku-deploy@v
+        with:
+          heroku_api_key: "8627fe46-1a0e-4548-ad29-cbf61fe103c4"
+          heroku_app_name: "socialconnectpro"
+          heroku_email: "suthardips123000@gmail.com"
