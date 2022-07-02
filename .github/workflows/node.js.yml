@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Deploy to heroku
+      # - name: Deploy to heroku
 
         # uses: akhileshns/heroku-deploy@v3.12.12
         # uses: dilip20222/test/heroku-deploy@v
