@@ -20,7 +20,7 @@ const commonValidationHook = () => {
       ) {
         setError({ ...error, name: "Please Enter the valid Password" });
       }
-      break;
+      break
     default:
       break;
     }

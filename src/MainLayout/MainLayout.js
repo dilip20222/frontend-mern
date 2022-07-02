@@ -1,12 +1,15 @@
-import React from "react"
-import { Outlet } from "react-router-dom";
+import React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const MainLayout = () => {
-  return (<>
-    <h1>MainLayout</h1>
-    <Outlet/>
-  </>
-  )
-}
- 
+  let isAuth = localStorage.getItem('token');
+  let navigate = useNavigate()
+
+  return (
+    <>
+      {!isAuth ? navigate("/auth/login") : <Outlet/>}
+    </>
+  );
+};
+
 export default MainLayout;
